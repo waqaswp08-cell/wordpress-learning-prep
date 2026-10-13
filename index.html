@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W.P Mastery: WordPress Development, Preparation & Career Hub</title>
+  <meta name="description" content="Comprehensive WordPress Development, Company Interview Preparation, Practice Exercises, and Real-World Projects.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts: Inter & Fira Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Fira Code', 'monospace']
+          },
+          colors: {
+            wp: {
+              DEFAULT: '#0073aa',
+              dark: '#005177',
+              navy: '#0f172a'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-indigo-600 selection:text-white">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- Logo & Branding -->
+        <div class="flex items-center gap-3 cursor-pointer" onclick="window.switchTabTo('overview')">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-indigo-500/20">
+            <i class="fab fa-wordpress text-2xl"></i>
+          </div>
+          <div>
+            <span class="brand-title font-extrabold text-lg tracking-tight bg-gradient-to-r from-white via-slate-100 to-indigo-300 bg-clip-text text-transparent">W.P Mastery</span>
+            <span class="text-[10px] font-semibold text-indigo-400 block -mt-1 tracking-wider uppercase">Prep & Career Hub</span>
+          </div>
+        </div>
+
+        <!-- Global Search Bar -->
+        <div class="hidden md:flex items-center flex-1 max-w-md mx-8" id="quick-search-box">
+          <div class="relative w-full">
+            <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input 
+              type="text" 
+              id="global-search" 
+              placeholder="Search hooks, interview questions, WooCommerce, WP_Query..." 
+              class="w-full pl-9 pr-4 py-2 bg-slate-950/80 border border-slate-700/80 rounded-xl text-xs text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 transition-colors"
+            >
+          </div>
+        </div>
+
+        <!-- Header Action Badges -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <!-- Dark / Light Mode Toggle Button -->
+          <button id="theme-toggle-btn" class="theme-toggle-btn px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700/80 transition-colors flex items-center gap-1.5 shadow-sm" title="Toggle Dark/Light Mode">
+            <i id="theme-toggle-icon" class="fas fa-sun text-amber-400"></i>
+            <span id="theme-toggle-text" class="hidden sm:inline">Light Mode</span>
+          </button>
+          <div class="hidden sm:flex items-center gap-2 bg-slate-800/80 border border-slate-700/60 rounded-full px-3 py-1">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="text-xs text-slate-300 font-medium">Hiring Ready</span>
+          </div>
+          <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 text-xs font-semibold border border-indigo-500/30 transition-colors flex items-center gap-1.5">
+            <i class="fas fa-file-download"></i> <span class="hidden sm:inline">Export Sheets</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Navigation Tabs Bar -->
+      <nav class="flex space-x-1 sm:space-x-4 overflow-x-auto py-2 border-t border-slate-800/60 no-scrollbar text-xs">
+        <button class="nav-tab-btn tab-active px-3 py-2 rounded-lg font-bold text-indigo-400 hover:text-white transition-colors whitespace-nowrap" data-tab="overview">
+          <i class="fas fa-compass mr-1.5"></i> Dashboard
+        </button>
+        <button class="nav-tab-btn px-3 py-2 rounded-lg text-slate-400 hover:text-white transition-colors whitespace-nowrap" data-tab="development">
+          <i class="fas fa-code mr-1.5"></i> WordPress Development
+        </button>
+        <button class="nav-tab-btn px-3 py-2 rounded-lg text-slate-400 hover:text-white transition-colors whitespace-nowrap" data-tab="preparation">
+          <i class="fas fa-layer-group mr-1.5"></i> Preparation Tracks
+        </button>
+        <button class="nav-tab-btn px-3 py-2 rounded-lg text-slate-400 hover:text-white transition-colors whitespace-nowrap" data-tab="hiring">
+          <i class="fas fa-briefcase mr-1.5"></i> Company Hiring Process
+        </button>
+        <button class="nav-tab-btn px-3 py-2 rounded-lg text-slate-400 hover:text-white transition-colors whitespace-nowrap" data-tab="practice">
+          <i class="fas fa-flask mr-1.5"></i> Dedicated Practice
+        </button>
+        <button class="nav-tab-btn px-3 py-2 rounded-lg text-slate-400 hover:text-white transition-colors whitespace-nowrap" data-tab="projects">
+          <i class="fas fa-laptop-code mr-1.5"></i> Real-World Projects
+        </button>
+        <button class="nav-tab-btn px-3 py-2 rounded-lg text-slate-400 hover:text-white transition-colors whitespace-nowrap" data-tab="sheets">
+          <i class="fas fa-table mr-1.5"></i> Learning Sheets
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- TAB 1: OVERVIEW & DASHBOARD -->
+    <section id="tab-overview" class="tab-content-section space-y-8">
+      
+      <!-- Hero Banner -->
+      <div class="hero-banner relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950 border border-indigo-900/50 p-6 sm:p-10 shadow-2xl">
+        <div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none text-[220px] text-white">
+          <i class="fab fa-wordpress"></i>
+        </div>
+        <div class="relative z-10 max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-semibold mb-4">
+            <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+            Production WordPress Engineer Career Roadmap
+          </div>
+          <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4 leading-tight">
+            Master Modern <span class="bg-gradient-to-r from-sky-400 to-indigo-400 bg-clip-text text-transparent">WordPress Development</span> & Ace Technical Interviews
+          </h1>
+          <p class="text-sm sm:text-base text-slate-300 mb-6 leading-relaxed">
+            The definitive platform covering WordPress architecture, full site editing, custom plugins, Elementor, WooCommerce, hands-on debugging, company interview challenges, and topic-wise cheatsheets.
+          </p>
+          <div class="flex flex-wrap items-center gap-3">
+            <button onclick="window.switchTabTo('development')" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-bold shadow-lg shadow-indigo-600/30 transition-all flex items-center gap-2">
+              <i class="fas fa-rocket"></i> Start Learning Track
+            </button>
+            <button onclick="window.switchTabTo('hiring')" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-semibold border border-slate-700 transition-colors flex items-center gap-2">
+              <i class="fas fa-user-tie"></i> Interview Preparation Vault
+            </button>
+            <button onclick="window.switchTabTo('practice')" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-semibold border border-slate-700 transition-colors flex items-center gap-2">
+              <i class="fas fa-bug text-rose-400"></i> Practice Debugging
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preparation Progress Tracker -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="glass-panel rounded-xl p-5 border border-slate-800">
+          <span class="text-xs text-slate-400 block mb-1">Overall Curriculum Readiness</span>
+          <div class="flex items-baseline justify-between mb-2">
+            <span id="stat-overall-progress" class="text-2xl font-black text-indigo-400 font-mono">0%</span>
+            <span class="text-xs text-emerald-400 font-semibold"><i class="fas fa-chart-line"></i> Dynamic Tracking</span>
+          </div>
+          <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+            <div id="stat-progress-bar" class="bg-indigo-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div class="glass-panel rounded-xl p-5 border border-slate-800">
+          <span class="text-xs text-slate-400 block mb-1">Completed Topics</span>
+          <div class="flex items-baseline justify-between">
+            <span id="stat-completed-count" class="text-2xl font-black text-white font-mono">0 / 6</span>
+            <i class="fas fa-check-circle text-emerald-400 text-xl"></i>
+          </div>
+          <span class="text-[11px] text-slate-400 mt-2 block">Foundations & Advanced Modules</span>
+        </div>
+
+        <div class="glass-panel rounded-xl p-5 border border-slate-800">
+          <span class="text-xs text-slate-400 block mb-1">Mastered Interview Q&As</span>
+          <div class="flex items-baseline justify-between">
+            <span id="stat-mastered-questions" class="text-2xl font-black text-sky-400 font-mono">0 / 8</span>
+            <i class="fas fa-question-circle text-sky-400 text-xl"></i>
+          </div>
+          <span class="text-[11px] text-slate-400 mt-2 block">Junior to Senior Technical Questions</span>
+        </div>
+
+        <div class="glass-panel rounded-xl p-5 border border-slate-800">
+          <span class="text-xs text-slate-400 block mb-1">Practice Challenges</span>
+          <div class="flex items-baseline justify-between">
+            <span class="text-2xl font-black text-purple-400 font-mono">9 Active</span>
+            <i class="fas fa-vial text-purple-400 text-xl"></i>
+          </div>
+          <span class="text-[11px] text-slate-400 mt-2 block">Quizzes, Bug Debugging & Blueprints</span>
+        </div>
+      </div>
+
+      <!-- Core Pathways Overview -->
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h2 class="text-xl font-bold text-white">Full Preparation Roadmap</h2>
+            <p class="text-xs text-slate-400">Structured step-by-step pathways for junior, mid, and senior candidates</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <div class="glass-panel glass-panel-hover rounded-xl p-6 border border-slate-800 cursor-pointer" onclick="window.switchTabTo('development')">
+            <div class="w-10 h-10 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center text-lg mb-4">
+              <i class="fas fa-code"></i>
+            </div>
+            <h3 class="font-bold text-white text-base mb-2">1. WordPress Development</h3>
+            <p class="text-xs text-slate-300 mb-4">
+              Core database schema, wp-config flags, Actions vs Filters lifecycle, CPTs, taxonomies, and secure REST APIs.
+            </p>
+            <span class="text-xs font-semibold text-sky-400 flex items-center gap-1">
+              Explore Modules <i class="fas fa-arrow-right"></i>
+            </span>
+          </div>
+
+          <div class="glass-panel glass-panel-hover rounded-xl p-6 border border-slate-800 cursor-pointer" onclick="window.switchTabTo('preparation')">
+            <div class="w-10 h-10 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-lg mb-4">
+              <i class="fas fa-layer-group"></i>
+            </div>
+            <h3 class="font-bold text-white text-base mb-2">2. Preparation Domains</h3>
+            <p class="text-xs text-slate-300 mb-4">
+              Basics, modern FSE themes, custom plugin architecture, Elementor widget building, and WooCommerce HPOS.
+            </p>
+            <span class="text-xs font-semibold text-indigo-400 flex items-center gap-1">
+              Explore Tracks <i class="fas fa-arrow-right"></i>
+            </span>
+          </div>
+
+          <div class="glass-panel glass-panel-hover rounded-xl p-6 border border-slate-800 cursor-pointer" onclick="window.switchTabTo('hiring')">
+            <div class="w-10 h-10 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center text-lg mb-4">
+              <i class="fas fa-user-check"></i>
+            </div>
+            <h3 class="font-bold text-white text-base mb-2">3. Company Hiring & Interviewing</h3>
+            <p class="text-xs text-slate-300 mb-4">
+              Eligibility salary bands, skills matrix, Junior to Senior live interview questions, gotchas, and portfolio advice.
+            </p>
+            <span class="text-xs font-semibold text-purple-400 flex items-center gap-1">
+              Ace Your Interview <i class="fas fa-arrow-right"></i>
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- TAB 2: WORDPRESS DEVELOPMENT -->
+    <section id="tab-development" class="tab-content-section hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+        <div>
+          <h2 class="text-2xl font-bold text-white">WordPress Development Curriculum</h2>
+          <p class="text-xs text-slate-400">Deep architectural foundations, hooks, database optimization, and modern block dev</p>
+        </div>
+        <div class="text-xs text-slate-400">
+          Click any card to read in-depth modules and copy production code snippets.
+        </div>
+      </div>
+
+      <!-- Topics Grid Container -->
+      <div id="topics-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- TAB 3: PREPARATION TRACKS -->
+    <section id="tab-preparation" class="tab-content-section hidden space-y-6">
+      <div class="pb-4 border-b border-slate-800">
+        <h2 class="text-2xl font-bold text-white">Structured Preparation Tracks</h2>
+        <p class="text-xs text-slate-400">Targeted study tracks covering Basics, Themes, Plugins, Elementor, WooCommerce & Projects</p>
+      </div>
+
+      <div id="prep-tracks-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- TAB 4: COMPANY HIRING PROCESS -->
+    <section id="tab-hiring" class="tab-content-section hidden space-y-8">
+      <div class="pb-4 border-b border-slate-800">
+        <h2 class="text-2xl font-bold text-white">Company Hiring Process & Technical Interview Vault</h2>
+        <p class="text-xs text-slate-400">Eligibility benchmarks, skills matrices, salary expectations, and actual interview questions</p>
+      </div>
+
+      <!-- Section A: Eligibility Tiers -->
+      <div>
+        <h3 class="text-lg font-bold text-white mb-3 flex items-center gap-2">
+          <i class="fas fa-id-badge text-indigo-400"></i> Role Eligibility, Expectations & Salary Bands
+        </h3>
+        <div id="eligibility-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Section B: Skills Matrix -->
+      <div>
+        <h3 class="text-lg font-bold text-white mb-3 flex items-center gap-2">
+          <i class="fas fa-clipboard-check text-emerald-400"></i> WordPress Developer Skills Matrix Checklist
+        </h3>
+        <div id="skills-matrix-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Section C: Interview Question Bank -->
+      <div class="space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+              <i class="fas fa-question-circle text-sky-400"></i> Technical Interview Questions & Real-World Gotchas
+            </h3>
+            <p class="text-xs text-slate-400">Filter by difficulty level or search specific topics</p>
+          </div>
+
+          <!-- Filter buttons -->
+          <div class="flex items-center gap-1.5 p-1 rounded-lg bg-slate-900 border border-slate-800 self-start sm:self-auto">
+            <button class="interview-filter-btn px-3 py-1 rounded text-xs font-semibold bg-indigo-600 text-white transition-colors" data-level="All">All</button>
+            <button class="interview-filter-btn px-3 py-1 rounded text-xs font-semibold bg-slate-800 text-slate-300 hover:text-white transition-colors" data-level="Junior">Junior</button>
+            <button class="interview-filter-btn px-3 py-1 rounded text-xs font-semibold bg-slate-800 text-slate-300 hover:text-white transition-colors" data-level="Mid-Level">Mid-Level</button>
+            <button class="interview-filter-btn px-3 py-1 rounded text-xs font-semibold bg-slate-800 text-slate-300 hover:text-white transition-colors" data-level="Senior">Senior</button>
+          </div>
+        </div>
+
+        <div id="interview-questions-list" class="space-y-4">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Section D: Job Prep Strategy & Scenarios -->
+      <div>
+        <h3 class="text-lg font-bold text-white mb-3 flex items-center gap-2">
+          <i class="fas fa-lightbulb text-amber-400"></i> Hiring Strategy & Practical Live-Coding Advice
+        </h3>
+        <div id="job-strategy-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: DEDICATED PRACTICE -->
+    <section id="tab-practice" class="tab-content-section hidden space-y-8">
+      <div class="pb-4 border-b border-slate-800">
+        <h2 class="text-2xl font-bold text-white">Dedicated WordPress Practice</h2>
+        <p class="text-xs text-slate-400">Interactive quizzes and live code debugging challenges to sharpen your engineering skills</p>
+      </div>
+
+      <!-- Part 1: Interactive Quizzes -->
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+              <i class="fas fa-check-double text-indigo-400"></i> Interactive Knowledge Quizzes
+            </h3>
+            <p class="text-xs text-slate-400">Test your mastery of WordPress lifecycle, security, and hooks</p>
+          </div>
+        </div>
+        <div id="quiz-engine-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Part 2: Code Debug Challenges -->
+      <div>
+        <div class="mb-4">
+          <h3 class="text-lg font-bold text-white flex items-center gap-2">
+            <i class="fas fa-bug text-rose-400"></i> Spot & Fix the WordPress Bugs
+          </h3>
+          <p class="text-xs text-slate-400">Real production bugs that break client sites: identify the flaw and view the clean fix</p>
+        </div>
+        <div id="debug-challenges-container" class="grid grid-cols-1 gap-6">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6: REAL-WORLD PROJECTS -->
+    <section id="tab-projects" class="tab-content-section hidden space-y-6">
+      <div class="pb-4 border-b border-slate-800">
+        <h2 class="text-2xl font-bold text-white">Real-World Portfolio Projects</h2>
+        <p class="text-xs text-slate-400">Step-by-step blueprints, file trees, and implementation specs for high-value portfolio pieces</p>
+      </div>
+
+      <div id="projects-grid-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- TAB 7: TOPIC LEARNING SHEETS -->
+    <section id="tab-sheets" class="tab-content-section hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+        <div>
+          <h2 class="text-2xl font-bold text-white">Topic-Wise Learning Sheets & Cheatsheets</h2>
+          <p class="text-xs text-slate-400">High-utility syntax references, lifecycle hooks, WP_Query arguments, and security matrices</p>
+        </div>
+        <button onclick="window.print()" class="no-print px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-md flex items-center gap-2 self-start sm:self-auto">
+          <i class="fas fa-print"></i> Print All Sheets (PDF)
+        </button>
+      </div>
+
+      <div id="sheets-container" class="space-y-6">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Deep Dive Detail Modal -->
+  <div id="detail-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel bg-slate-900 border border-slate-700 w-full max-w-4xl max-h-[90vh] rounded-2xl flex flex-col shadow-2xl overflow-hidden">
+      <div class="p-4 sm:p-6 border-b border-slate-800 flex items-center justify-between">
+        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Module Study Session</span>
+        <button id="modal-close-btn" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div id="modal-body-content" class="p-6 overflow-y-auto flex-1 space-y-6">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900/60 border-t border-slate-800 py-8 mt-12 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+      <div class="flex items-center gap-2">
+        <i class="fab fa-wordpress text-indigo-400 text-base"></i>
+        <span>W.P Mastery • Complete WordPress Preparation & Engineering Portal</span>
+      </div>
+      <div>
+        <span>Designed for aspiring and professional WordPress Engineers</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data/topics.js"></script>
+  <script src="data/interviews.js"></script>
+  <script src="data/practice.js"></script>
+  <script src="data/sheets.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

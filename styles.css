@@ -1,0 +1,226 @@
+/* Custom Styles for W.P Mastery */
+
+:root {
+  --wp-blue: #0073aa;
+  --wp-dark-blue: #005177;
+  --wp-navy: #0f172a;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+html:not(.dark) ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+html:not(.dark) ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+html:not(.dark) ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Code snippet formatting */
+pre code {
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  line-height: 1.6;
+}
+
+/* Glassmorphism Cards */
+.glass-panel {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-hover {
+  transition: all 0.25s ease;
+}
+.glass-panel-hover:hover {
+  transform: translateY(-3px);
+  border-color: rgba(99, 102, 241, 0.35);
+  box-shadow: 0 12px 30px -10px rgba(79, 70, 229, 0.2);
+}
+
+/* Pulsing Badge */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.6)); }
+}
+.pulse-badge {
+  animation: pulseGlow 2.5s infinite;
+}
+
+/* Tab active indicator */
+.tab-active {
+  border-bottom: 2px solid #6366f1;
+  color: #818cf8 !important;
+}
+
+/* Copy button tooltip */
+.copy-btn {
+  transition: all 0.2s ease;
+}
+.copy-btn:active {
+  transform: scale(0.92);
+}
+
+/* ========================================================
+   LIGHT MODE OVERRIDES
+   ======================================================== */
+html:not(.dark) body {
+  background-color: #f8fafc !important;
+  color: #1e293b !important;
+}
+
+html:not(.dark) header {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) nav {
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) .brand-title {
+  background: linear-gradient(135deg, #0f172a 0%, #4338ca 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html:not(.dark) .hero-banner {
+  background: linear-gradient(135deg, #eef2ff 0%, #ffffff 50%, #f3e8ff 100%) !important;
+  border-color: #c7d2fe !important;
+}
+html:not(.dark) .hero-banner h1 {
+  color: #0f172a !important;
+}
+html:not(.dark) .hero-banner p {
+  color: #475569 !important;
+}
+
+html:not(.dark) .glass-panel {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+}
+
+html:not(.dark) .glass-panel h2,
+html:not(.dark) .glass-panel h3,
+html:not(.dark) .glass-panel h4,
+html:not(.dark) .glass-panel .text-white,
+html:not(.dark) h1.text-white,
+html:not(.dark) h2.text-white,
+html:not(.dark) h3.text-white,
+html:not(.dark) h4.text-white {
+  color: #0f172a !important;
+}
+
+html:not(.dark) .glass-panel p,
+html:not(.dark) .glass-panel .text-slate-300,
+html:not(.dark) p.text-slate-300,
+html:not(.dark) li.text-slate-300 {
+  color: #475569 !important;
+}
+
+html:not(.dark) .glass-panel .text-slate-400,
+html:not(.dark) span.text-slate-400,
+html:not(.dark) p.text-slate-400 {
+  color: #64748b !important;
+}
+
+html:not(.dark) #global-search {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+html:not(.dark) #global-search::placeholder {
+  color: #94a3b8 !important;
+}
+
+html:not(.dark) .bg-slate-900,
+html:not(.dark) .bg-slate-900\/80,
+html:not(.dark) .bg-slate-900\/90,
+html:not(.dark) .bg-slate-900\/60 {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) .bg-slate-800,
+html:not(.dark) .bg-slate-800\/80,
+html:not(.dark) .bg-slate-800\/60 {
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
+  border-color: #cbd5e1 !important;
+}
+
+html:not(.dark) .border-slate-800,
+html:not(.dark) .border-slate-800\/60,
+html:not(.dark) .border-slate-800\/80,
+html:not(.dark) .border-slate-700,
+html:not(.dark) .border-slate-700\/80,
+html:not(.dark) .border-slate-700\/60 {
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) .nav-tab-btn:not(.tab-active) {
+  color: #64748b !important;
+}
+html:not(.dark) .nav-tab-btn:hover {
+  color: #4338ca !important;
+}
+
+html:not(.dark) footer {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) #detail-modal .glass-panel {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+html:not(.dark) .theme-toggle-btn {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+/* Printable Learning Sheets */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  header, nav, #quick-search-box, .no-print, button, #toast-container, .theme-toggle-btn {
+    display: none !important;
+  }
+  .sheet-card {
+    page-break-inside: avoid;
+    border: 1px solid #ccc !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  table, th, td {
+    border-color: #333333 !important;
+    color: #000000 !important;
+  }
+  pre {
+    background: #f1f5f9 !important;
+    color: #0f172a !important;
+    border: 1px solid #cbd5e1 !important;
+  }
+}
